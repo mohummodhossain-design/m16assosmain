@@ -12,8 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->id();
+           $table->id();
+            $table->string('total', 50);
+            $table->string('discount', 50)->nullable();
+            $table->string('vat', 50)->nullable();
+            $table->string('payable', 50);
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('customer_id');
             $table->timestamps();
+
+      
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+
+            $table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+             $table->id();
+           $table->string('name', 100);
+           $table->string('price', 50);
+          $table->string('unit', 10);
+            $table->unsignedBigInteger('user_id');
+           $table->unsignedBigInteger('category_id');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });
     }
